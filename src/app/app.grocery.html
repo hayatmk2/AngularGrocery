@@ -1,0 +1,22 @@
+<div>
+    <mat-toolbar color="primary" ><h2>Grocery list manager</h2> </mat-toolbar>
+    <div class="row">
+      <div class="col-xs-6 col-md-4">
+        <div class="input-group" style="width: 500px; margin: auto; padding: 5px">        
+          <input type="text" class="form-control" placeholder="enter grocery items" [(ngModel)]="task"/>
+          <button class="button" (click)="onClick()"> ADD      
+            </button> 
+            </div>
+            <div>  
+           <span><h2> Grocery List </h2></span>   
+        </div>   
+     </div>
+    </div>
+    <br/>
+    <ul class="list-group">
+      <li *ngFor="let task of tasks; let i = index" class="list-group-item">
+          <span>{{task.name }} </span>
+          <button class="button1" (click)="removeEntry(i)">Remove</button>
+      </li>
+  </ul>
+</div>
