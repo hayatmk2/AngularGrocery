@@ -1,27 +1,54 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-grocery',
-  templateUrl: './app.grocery.html',
-  styleUrls: ['../assets/bootstrap-5.2.2-dist/css/bootstrap.min.css'],
+	selector: 'app-grocery',
+	templateUrl: './app.grocery.html',
+	styleUrls: [
+        '../assets/css/bootstrap.min.css'
+    ]
 })
 
-export class GroceryComponent{
+export class GroceryComponent {
+    task = {
+      name: '',
+      id: 0
+    };
+    tasks : any[] =[];
 
-  task: string;
-  tasks: any[] = [];
-
-  onClick(){
-    if(this.task){
-      this.tasks.push({name: this.task});
-      this.task = '';
+    onClick(){
+      if(this.task.id == 0 || this.task){
+        this.tasks.push({id: (new Date()).getTime(),name: this.task.name, strike: false});
+      }   
+      this.task = {
+        name: '',
+        id: 0
+      };
     }
-  }
-  removeEntry(index: number):void{
-    console.log("entry removed")
-    this.tasks.splice(index, 1)
-  }
-  clear(): void {
-    this.task = "";
-  }
+    
+    onEdit(item: any){
+      this.task = item;
+    }
+
+    onDelete(item: any){
+      for(var i = 0;i < this.tasks.length; i++){
+        if(item.id == this.tasks[i].id){
+          this.tasks.splice(i,1);
+          break;
+        }
+      }
+    }
+
+    onStrike(item: any){
+      for(var i = 0;i < this.tasks.length; i++){
+        if(item.id == this.tasks[i].id){
+          if(this.tasks[i].strike){
+            this.tasks[i].strike = false;
+          }
+          else{
+            this.tasks[i].strike = true;
+          }
+          break;
+        }
+      }
+    }
 }
